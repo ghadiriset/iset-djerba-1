@@ -1,0 +1,126 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<section class="section auth-section">
+  <div class="container auth-container">
+    <div class="glass-card auth-card" style="max-width:520px;">
+      <span class="eyebrow">Inscription</span>
+      <h1>Créer un compte</h1>
+      <p>Rejoignez la plateforme des stages de l'ISET Djerba. Remplissez le formulaire selon votre profil.</p>
+
+      <% if (error) { %>
+        <div class="alert"><i class="ti ti-alert-circle"></i> <%= error %></div>
+      <% } %>
+      <% if (success) { %>
+        <div class="alert" style="background:var(--green,#d1fae5);color:#065f46;border-color:#6ee7b7;">
+          <i class="ti ti-circle-check"></i> <%= success %>
+        </div>
+      <% } %>
+
+      <form method="POST" action="/register" class="stack-lg" style="margin-top:1.2rem;">
+
+        <!-- Rôle -->
+        <div>
+          <label>Je suis <span style="color:red">*</span></label>
+          <select name="role" required onchange="toggleFields(this.value)">
+            <option value="">— Choisir votre profil —</option>
+            <option value="student">Étudiant(e)</option>
+            <option value="professor">Enseignant(e) / Encadrant(e)</option>
+          </select>
+        </div>
+
+        <!-- Nom complet -->
+        <div>
+          <label>Nom complet <span style="color:red">*</span></label>
+          <input type="text" name="full_name" placeholder="Ex: Ahmed Ben Salem" required>
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label>Adresse email <span style="color:red">*</span></label>
+          <input type="email" name="email" placeholder="nom@isetdjerba.tn" required>
+          <small style="color:var(--text-2);font-size:0.8rem;margin-top:4px;display:block">
+            Utilisez votre email institutionnel si possible.
+          </small>
+        </div>
+
+        <!-- Département -->
+        <div>
+          <label>Département / Spécialité <span style="color:red">*</span></label>
+          <select name="department" required>
+            <option value="">— Choisir —</option>
+            <option value="Informatique">Informatique</option>
+            <option value="Réseaux">Réseaux & Télécommunications</option>
+            <option value="Multimédia">Multimédia & Design Web</option>
+            <option value="Génie Électrique">Génie Électrique</option>
+            <option value="Génie Mécanique">Génie Mécanique</option>
+            <option value="Gestion">Gestion & Commerce</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Autre">Autre</option>
+          </select>
+        </div>
+
+        <!-- Promotion (étudiant uniquement) -->
+        <div id="promo-field">
+          <label>Classe / Niveau <span style="color:red">*</span></label>
+          <select name="promotion">
+            <option value="">— Choisir —</option>
+            <option value="1A">1ère année (L1)</option>
+            <option value="2A">2ème année (L2)</option>
+            <option value="3A">3ème année (L3 / PFE)</option>
+          </select>
+        </div>
+
+        <!-- Grade (prof uniquement, caché par défaut) -->
+        <div id="grade-field" style="display:none;">
+          <label>Grade / Fonction</label>
+          <select name="grade">
+            <option value="Encadrant">Encadrant(e) de stage</option>
+            <option value="Maître Assistant">Maître Assistant</option>
+            <option value="Assistant">Assistant</option>
+            <option value="Professeur">Professeur</option>
+          </select>
+        </div>
+
+        <!-- Mot de passe -->
+        <div>
+          <label>Mot de passe <span style="color:red">*</span></label>
+          <input type="password" name="password" placeholder="Minimum 6 caractères" minlength="6" required>
+        </div>
+
+        <!-- Confirmer MDP -->
+        <div>
+          <label>Confirmer le mot de passe <span style="color:red">*</span></label>
+          <input type="password" name="confirm_password" placeholder="Répéter le mot de passe" minlength="6" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary full" style="margin-top:8px;">
+          <i class="ti ti-user-plus"></i> Créer mon compte
+        </button>
+
+        <p style="text-align:center;font-size:0.88rem;color:var(--text-2);">
+          Déjà inscrit ? <a href="/login" style="color:var(--iset-blue);">Se connecter →</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+function toggleFields(role) {
+  const promo = document.getElementById('promo-field');
+  const grade = document.getElementById('grade-field');
+  if (role === 'student') {
+    promo.style.display = 'block';
+    grade.style.display = 'none';
+  } else if (role === 'professor') {
+    promo.style.display = 'none';
+    grade.style.display = 'block';
+  } else {
+    promo.style.display = 'block';
+    grade.style.display = 'none';
+  }
+}
+</script>
+
+<%- include('../partials/footer') %>

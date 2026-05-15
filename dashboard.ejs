@@ -1,0 +1,79 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<section class="page-hero compact">
+  <div class="container">
+    <span class="eyebrow">Espace étudiant</span>
+    <h1>Dashboard étudiant</h1>
+    <p>Consultez les offres, postulez rapidement et échangez avec votre encadrant.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container dashboard-grid-2">
+    <div class="glass-card wide-card">
+      <div class="section-head small-gap">
+        <h3>Offres recommandées</h3>
+        <a href="/stages" class="text-link">Toutes les offres</a>
+      </div>
+      <div class="mini-card-grid">
+        <% internships.forEach(item => { %>
+          <article class="mini-card">
+            <span class="badge success"><%= item.company_name %></span>
+            <h4><%= item.title %></h4>
+            <p><%= item.description %></p>
+            <div class="meta wrap"><span><%= item.location %></span><span><%= item.duration %></span></div>
+            <form action="/postuler/<%= item.id %>" method="POST">
+              <button class="btn btn-primary full">Postuler</button>
+            </form>
+          </article>
+        <% }) %>
+      </div>
+    </div>
+
+    <div class="glass-card">
+      <h3>Professeurs disponibles</h3>
+      <ul class="dashboard-list">
+        <% professors.forEach(prof => { %>
+          <li>
+            <strong><%= prof.full_name %></strong>
+            <span><%= prof.department %></span>
+            <a href="/chat?user=<%= prof.id %>">Ouvrir le chat</a>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+
+    <div class="glass-card wide-card">
+      <h3>Mes candidatures</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Stage</th><th>Entreprise</th><th>Statut</th><th>Date</th></tr></thead>
+          <tbody>
+            <% applications.forEach(item => { %>
+              <tr>
+                <td><%= item.title %></td>
+                <td><%= item.company_name %></td>
+                <td><span class="badge soft"><%= item.status %></span></td>
+                <td><%= new Date(item.created_at).toLocaleDateString('fr-FR') %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="glass-card wide-card">
+      <h3>Soumettre un rapport de stage</h3>
+      <form method="POST" action="/student/reports" class="form-grid" enctype="multipart/form-data">
+        <input name="title" placeholder="Titre du rapport" required>
+        <input name="year" placeholder="Année (ex: 2026)">
+        <input name="specialty" placeholder="Spécialité">
+        <input name="pdf_file" type="file" accept="application/pdf,.pdf">
+        <input name="file_url" placeholder="Lien PDF externe (optionnel)">
+        <textarea name="summary" placeholder="Résumé du rapport"></textarea>
+        <button class="btn btn-primary full">Soumettre le rapport</button>
+      </form>
+    </div>
+
+  </div>
+</section>
+<%- include('../partials/footer') %>

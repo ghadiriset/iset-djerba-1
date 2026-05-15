@@ -1,0 +1,25 @@
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a href="/" class="brand">
+      <span class="brand-badge">ISET</span>
+      <div>
+        <strong>ISET Djerba</strong>
+        <small>Plateforme des stages</small>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="/" class="<%= currentPath === '/' ? 'active' : '' %>">Accueil</a>
+      <a href="/entreprises" class="<%= currentPath === '/entreprises' ? 'active' : '' %>">Entreprises</a>
+      <a href="/stages" class="<%= currentPath === '/stages' ? 'active' : '' %>">Stages</a>
+      <a href="/rapports" class="<%= currentPath === '/rapports' ? 'active' : '' %>">Rapports</a>
+      <a href="/a-propos" class="<%= currentPath === '/a-propos' ? 'active' : '' %>">À propos</a>
+      <% if (user) { %>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/chat">Chat</a>
+        <a href="/logout" class="btn btn-outline">Déconnexion</a>
+      <% } else { %>
+        <a href="/register" class="btn btn-outline" style="margin-right:8px;">S'inscrire</a><a href="/login" class="btn btn-primary">Connexion</a>
+      <% } %>
+    </nav>
+  </div>
+</header>

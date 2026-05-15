@@ -1,0 +1,27 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<section class="section auth-section">
+  <div class="container auth-container">
+    <div class="glass-card auth-card">
+      <span class="eyebrow">Connexion</span>
+      <h1>Accéder à la plateforme</h1>
+      <p>Connectez-vous selon votre rôle pour gérer les stages et communiquer avec l'encadrement.</p>
+      <% if (error) { %>
+        <div class="alert"><%= error %></div>
+      <% } %>
+      <form method="POST" action="/login" class="stack-lg">
+        <div>
+          <label>Email</label>
+          <input type="email" name="email" placeholder="nom@isetdjerba.tn" required>
+        </div>
+        <div>
+          <label>Mot de passe</label>
+          <input type="password" name="password" placeholder="••••••••" required>
+        </div>
+        <button class="btn btn-primary full">Se connecter</button>
+      </form>
+
+    </div>
+  </div>
+</section>
+<%- include('../partials/footer') %>

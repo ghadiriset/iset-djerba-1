@@ -1,0 +1,100 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow">Plateforme dynamique liée à l'ISET de Djerba</span>
+      <h1>Gérez les stages, les rapports et l'encadrement sur un seul site moderne.</h1>
+      <p>Un espace centralisé pour les étudiants, les professeurs et l'administration avec offres de stage, suivi des candidatures, chat en temps réel et archive des anciens rapports.</p>
+      <div class="hero-actions">
+        <a href="/stages" class="btn btn-primary">Voir les stages</a>
+        <a href="/login" class="btn btn-outline">Accéder à la plateforme</a>
+      </div>
+      <div class="stats-row">
+        <div class="stat-card"><strong>+3</strong><span>entreprises partenaires</span></div>
+        <div class="stat-card"><strong>+4</strong><span>offres de stage</span></div>
+        <div class="stat-card"><strong>Chat</strong><span>étudiants ↔ professeurs</span></div>
+      </div>
+    </div>
+    <div class="hero-panel glass-card">
+      <h3>Modules disponibles</h3>
+      <ul class="feature-list">
+        <li>Gestion des entreprises partenaires</li>
+        <li>Publication des offres de stage</li>
+        <li>Ajout des étudiants et professeurs</li>
+        <li>Archive des anciens rapports</li>
+        <li>Espace chat avec les encadrants</li>
+        <li>Tableaux de bord selon le rôle</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Entreprises</span>
+        <h2>Entreprises partenaires</h2>
+      </div>
+      <a href="/entreprises" class="text-link">Voir tout</a>
+    </div>
+    <div class="card-grid">
+      <% companies.forEach(company => { %>
+        <article class="info-card">
+          <span class="badge"><%= company.sector %></span>
+          <h3><%= company.name %></h3>
+          <p><%= company.description %></p>
+          <div class="meta"><span><%= company.location %></span><span><%= company.contact_email %></span></div>
+        </article>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="section alt-bg">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Offres récentes</span>
+        <h2>Stages disponibles</h2>
+      </div>
+      <a href="/stages" class="text-link">Explorer</a>
+    </div>
+    <div class="card-grid">
+      <% internships.forEach(item => { %>
+        <article class="info-card internship-card">
+          <span class="badge success"><%= item.status %></span>
+          <h3><%= item.title %></h3>
+          <p><strong><%= item.company_name %></strong> — <%= item.description %></p>
+          <div class="meta"><span><%= item.location %></span><span><%= item.duration %></span></div>
+        </article>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Base documentaire</span>
+        <h2>Anciens rapports</h2>
+      </div>
+      <a href="/rapports" class="text-link">Consulter</a>
+    </div>
+    <div class="card-grid">
+      <% reports.forEach(report => { %>
+        <article class="info-card">
+          <span class="badge soft"><%= report.year %></span>
+          <h3><%= report.title %></h3>
+          <p><%= report.summary %></p>
+          <div class="meta"><span><%= report.student_name %></span><span><%= report.specialty %></span></div>
+        </article>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

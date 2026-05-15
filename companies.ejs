@@ -1,0 +1,28 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<section class="page-hero compact">
+  <div class="container">
+    <span class="eyebrow">Partenaires académiques</span>
+    <h1>Entreprises partenaires</h1>
+    <p>Liste des entreprises partenaires où les étudiants de l'ISET de Djerba peuvent effectuer leur stage.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container card-grid">
+    <% companies.forEach(company => { %>
+      <article class="info-card">
+        <div class="card-top">
+          <span class="badge"><%= company.sector %></span>
+          <span class="muted"><%= company.location %></span>
+        </div>
+        <h3><%= company.name %></h3>
+        <p><%= company.description %></p>
+        <div class="stack-sm">
+          <span><strong>Email:</strong> <%= company.contact_email %></span>
+          <span><strong>Site:</strong> <a href="<%= company.website %>" target="_blank"><%= company.website %></a></span>
+        </div>
+      </article>
+    <% }) %>
+  </div>
+</section>
+<%- include('../partials/footer') %>

@@ -1,0 +1,35 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<section class="page-hero compact">
+  <div class="container">
+    <span class="eyebrow">Opportunités</span>
+    <h1>Offres de stage</h1>
+    <p>Parcours clair pour découvrir les offres, postuler et suivre l'avancement.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="card-grid">
+      <% internships.forEach(item => { %>
+        <article class="info-card internship-card">
+          <div class="card-top">
+            <span class="badge success"><%= item.status %></span>
+            <span class="muted"><%= item.sector %></span>
+          </div>
+          <h3><%= item.title %></h3>
+          <p><strong><%= item.company_name %></strong></p>
+          <p><%= item.description %></p>
+          <div class="meta wrap"><span><%= item.duration %></span><span><%= item.location %></span><span>Rémunéré: <%= item.paid %></span></div>
+          <% if (user && user.role === 'student') { %>
+            <form action="/postuler/<%= item.id %>" method="POST">
+              <button class="btn btn-primary full">Postuler</button>
+            </form>
+          <% } else { %>
+            <a href="/login" class="btn btn-outline full">Se connecter pour postuler</a>
+          <% } %>
+        </article>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<%- include('../partials/footer') %>

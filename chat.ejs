@@ -1,0 +1,48 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<section class="page-hero compact">
+  <div class="container">
+    <span class="eyebrow">Messagerie</span>
+    <h1>Chat avec les professeurs</h1>
+    <p>Discussion privée entre étudiants et encadrants avec actualisation en temps réel.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container chat-layout" data-current-user="<%= currentUser.id %>" data-active-contact="<%= activeContactId || '' %>">
+    <aside class="chat-sidebar glass-card">
+      <h3>Contacts</h3>
+      <div class="contact-list">
+        <% contacts.forEach(contact => { %>
+          <a href="/chat?user=<%= contact.id %>" class="contact-item <%= activeContactId === contact.id ? 'active' : '' %>">
+            <div class="avatar"><%= contact.full_name.charAt(0) %></div>
+            <div>
+              <strong><%= contact.full_name %></strong>
+              <small><%= contact.department %> · <%= contact.role === 'professor' ? 'Professeur' : 'Étudiant' %></small>
+            </div>
+          </a>
+        <% }) %>
+      </div>
+    </aside>
+    <div class="chat-panel glass-card">
+      <div class="messages" id="messages">
+        <% messages.forEach(message => { %>
+          <div class="message <%= message.sender_id === currentUser.id ? 'mine' : 'theirs' %>">
+            <p><%= message.content %></p>
+            <span><%= new Date(message.created_at).toLocaleString('fr-FR') %></span>
+          </div>
+        <% }) %>
+      </div>
+      <% if (activeContactId) { %>
+      <form id="chatForm" class="chat-form">
+        <input type="hidden" id="senderId" value="<%= currentUser.id %>">
+        <input type="hidden" id="receiverId" value="<%= activeContactId %>">
+        <input type="text" id="messageInput" placeholder="Écrire un message..." autocomplete="off" required>
+        <button class="btn btn-primary">Envoyer</button>
+      </form>
+      <% } else { %>
+      <p>Aucun contact disponible.</p>
+      <% } %>
+    </div>
+  </div>
+</section>
+<%- include('../partials/footer') %>
