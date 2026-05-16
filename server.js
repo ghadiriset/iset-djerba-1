@@ -78,3 +78,12 @@ initDb().then(() => {
 }).catch(err => {
   console.error('Erreur démarrage:', err);
 });
+
+// ── KEEP ALIVE (éviter la veille sur Render plan gratuit) ──
+const https = require('https');
+const SITE_URL = process.env.RENDER_EXTERNAL_URL;
+if (SITE_URL) {
+  setInterval(() => {
+    https.get(SITE_URL, () => {}).on('error', () => {});
+  }, 14 * 60 * 1000);
+}
